@@ -1,0 +1,13 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "ENCRYPTION_KEY": "your-fernet-key-here",
+    "SAP_LANG": "EN"
+  },
+  "Host": {
+    "CORS": "*",
+    "CORSCredentials": false
+  }
+}
