@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAP Sales Order Agent</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>SAP Sales Order Agent</h1>
+            <div id="user-info" class="user-info hidden">
+                <span id="system-display" class="system-badge"></span>
+                <span id="username-display"></span>
+                <button id="logout-btn" class="btn btn-small">Logout</button>
+            </div>
+        </header>
+
+        <!-- Login Section -->
+        <section id="login-section" class="section">
+            <div class="login-card">
+                <h2>SAP Login</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="sap-system">System</label>
+                        <select id="sap-system" required class="form-select">
+                            <option value="">-- Select System --</option>
+                            <!-- Options will be populated dynamically -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sap-user">SAP User ID</label>
+                        <input type="text" id="sap-user" required placeholder="Enter SAP User ID">
+                    </div>
+                    <div class="form-group">
+                        <label for="sap-password">Password</label>
+                        <input type="password" id="sap-password" required placeholder="Enter Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="sap-client">Client</label>
+                        <input type="text" id="sap-client" value="100" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="login-btn">
+                        <span class="btn-text">Login</span>
+                        <span class="btn-loader hidden"></span>
+                    </button>
+                    <div id="login-error" class="error-message hidden"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Main Application Section -->
+        <section id="app-section" class="section hidden">
+
+            <!-- Upload Area -->
+            <div class="upload-area">
+                <h2>Upload Equipment Data</h2>
+                <div class="upload-box" id="upload-box">
+                    <input type="file" id="file-input" accept=".csv,.xlsx,.xls" hidden>
+                    <div class="upload-content">
+                        <svg class="upload-icon" viewBox="0 0 24 24" width="48" height="48">
+                            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                        </svg>
+                        <p>Drag & drop file here or <span class="link">browse</span></p>
+                        <p class="file-types">Supported: CSV, Excel (.xlsx, .xls)</p>
+                    </div>
+                </div>
+                <div id="file-info" class="file-info hidden">
+                    <span id="file-name"></span>
+                    <button id="clear-file" class="btn btn-small btn-danger">Remove</button>
+                </div>
+                <button id="process-btn" class="btn btn-primary hidden">
+                    <span class="btn-text">Upload & Process</span>
+                    <span class="btn-loader hidden"></span>
+                </button>
+            </div>
+
+            <!-- Progress Indicator -->
+            <div id="progress-section" class="progress-section hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <p id="progress-text">Processing...</p>
+            </div>
+
+            <!-- Data Table -->
+            <div id="data-section" class="data-section hidden">
+                <div class="table-header">
+                    <h2>Enriched Data</h2>
+                    <div class="table-actions">
+                        <span id="selection-count">0 rows selected</span>
+                        <button id="select-all-btn" class="btn btn-small">Select All</button>
+                        <button id="deselect-all-btn" class="btn btn-small">Deselect All</button>
+                        <button id="create-orders-btn" class="btn btn-primary" disabled>
+                            <span class="btn-text">Create Sales Orders</span>
+                            <span class="btn-loader hidden"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <span class="summary-value" id="total-rows">0</span>
+                        <span class="summary-label">Total Rows</span>
+                    </div>
+                    <div class="summary-card">
+                        <span class="summary-value" id="total-groups">0</span>
+                        <span class="summary-label">Order Groups</span>
+                    </div>
+                    <div class="summary-card success">
+                        <span class="summary-value" id="success-count">0</span>
+                        <span class="summary-label">Created</span>
+                    </div>
+                    <div class="summary-card error">
+                        <span class="summary-value" id="error-count">0</span>
+                        <span class="summary-label">Failed</span>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="table-container">
+                    <table id="data-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="header-checkbox"></th>
+                                <th>Row</th>
+                                <th>Equipment ID</th>
+                                <th>Material</th>
+                                <th>Qty</th>
+                                <th>Plant</th>
+                                <th>Sales Org</th>
+                                <th>Dist Ch</th>
+                                <th>Division</th>
+                                <th>Cost Center</th>
+                                <th>AUGRU</th>
+                                <th>Sold To</th>
+                                <th>Ship To</th>
+                                <th>Batch</th>
+                                <th>Status</th>
+                                <th>Sales Order</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table-body">
+                            <!-- Data rows will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

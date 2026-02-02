@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+.env
+
+# Azure Functions
+local.settings.json
+.python_packages/
+getting_started.md
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build
+dist/
+build/
+*.egg-info/
+
+# Azurite (local storage emulator)
+azurite/
+__azurite_db*.json
+__blobstorage__/
+__queuestorage__/
+
+# Logs
+*.log
+logs/
